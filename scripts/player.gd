@@ -23,7 +23,8 @@ class playerCustomisation:
 
 class playerData:
 	var h_flip : bool = false
-	var anim : StringName = &"up"
+	var anim : StringName = &"trot"
+	var animState : bool = false
 	var direction : Vector2i = Vector2i.ZERO
 	var moveSpeed : int = 200
 	var customisation = playerCustomisation.new()
@@ -32,7 +33,7 @@ class playerData:
 var playerWorldData = playerData.new()
 var playerEditorCustomisation = playerCustomisation.new()
 
-@export var state = PLAYER_STATES.STATE_WORLD
+var state: PLAYER_STATES = PLAYER_STATES.STATE_WORLD: set = set_state
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -55,29 +56,38 @@ func _physics_process(_delta: float) -> void:
 				int(Input.is_action_pressed("move_down"))  - int(Input.is_action_pressed("move_up"))
 			)
 			velocity = playerWorldData.direction * playerWorldData.moveSpeed
-			if playerWorldData.direction.x != 0:
-				$AnimatedSprite2D.animation = &"trot"
-				playerWorldData.anim = &"trot"
-			elif playerWorldData.direction.y !=0:
-				$AnimatedSprite2D.animation = &"trot"
-				playerWorldData.anim = &"trot"
-			if playerWorldData.direction.x < 0:
-				$AnimatedSprite2D.flip_h = false
-				playerWorldData.h_flip = false
-			if playerWorldData.direction.x > 0:
-				$AnimatedSprite2D.flip_h = true
-				playerWorldData.h_flip = true
-			if playerWorldData.direction.x == 0 && playerWorldData.direction.y == 0:
-				$AnimatedSprite2D.animation = playerWorldData.anim
-				$AnimatedSprite2D.flip_h = playerWorldData.h_flip
-			if velocity.length() > 0:
-				$AnimatedSprite2D.play()
-			else:
-				$AnimatedSprite2D.stop ()
-				$AnimatedSprite2D.animation = &"stand"
+			
+#			anim and horizontal flip
+			match(playerWorldData.direction.x):
+				0:
+					match(playerWorldData.direction.y):
+						0:
+							playerWorldData.anim = &"stand"
+							playerWorldData.animState = false
+						_:
+							playerWorldData.anim = &"trot"
+							playerWorldData.animState = true
+				_:
+					playerWorldData.h_flip = sign(playerWorldData.direction.x) + 1
+					playerWorldData.anim = &"trot"
+					playerWorldData.animState = true
+					
+			copyPlayerData(playerWorldData)
 			move_and_slide()
 		PLAYER_STATES.STATE_EDITOR:
 			pass
+
+func set_state(new_state: PLAYER_STATES):
+	var previous_state := state
+	state = new_state
+
+func copyPlayerData(datain: playerData):
+	$AnimatedSprite2D.flip_h = datain.h_flip
+	$AnimatedSprite2D.animation = datain.anim
+	if(datain.animState):
+		$AnimatedSprite2D.play()
+	else:
+		$AnimatedSprite2D.stop()
 
 func _on_open_options_open_char_editor() -> void:
 	match(state):
@@ -88,9 +98,9 @@ func _on_open_options_open_char_editor() -> void:
 			$AnimatedSprite2D.animation = &'stand'
 			playerWorldData.anim = &"stand"
 			$AnimatedSprite2D.flip_h = false
-			playerWorldData.h_flip = false
 			self.position.x = self.position.x - 100
 			
 		PLAYER_STATES.STATE_EDITOR:
 			self.position = playerWorldData.savedPos
+			copyPlayerData(playerWorldData)
 			state = PLAYER_STATES.STATE_WORLD
