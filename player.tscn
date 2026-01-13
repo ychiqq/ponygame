@@ -1,7 +1,7 @@
 [gd_scene load_steps=15 format=3 uid="uid://u1bxf1up7wmt"]
 
 [ext_resource type="Texture2D" uid="uid://b830e8vuswjdc" path="res://assets/ponySprite/chara_sheet.png" id="1_4flbx"]
-[ext_resource type="Script" uid="uid://csmepm1ykamtm" path="res://scripts/player.gd" id="1_onrkg"]
+[ext_resource type="Script" uid="uid://coyua7a6ke0ue" path="res://scripts/player.gd" id="1_onrkg"]
 [ext_resource type="Texture2D" uid="uid://dsx6520ltoiq7" path="res://assets/ponySprite/ponypsrite2.png" id="2_i3pqv"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_onrkg"]
@@ -105,3 +105,5 @@ shape = SubResource("RectangleShape2D_onrkg")
 y_sort_enabled = true
 sprite_frames = SubResource("SpriteFrames_sweqy")
 animation = &"trot"
+frame = 3
+frame_progress = 0.00410966

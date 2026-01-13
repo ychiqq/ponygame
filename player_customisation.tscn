@@ -1,0 +1,36 @@
+[gd_scene load_steps=3 format=3 uid="uid://ya2jtwqkdlko"]
+
+[ext_resource type="Texture2D" uid="uid://dt10gevklj4su" path="res://assets/ponySprite/chara_hair1.png" id="1_gseqs"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_2s0ba"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_gseqs")
+}],
+"loop": true,
+"name": &"new_animation",
+"speed": 5.0
+}]
+
+[node name="playerCustomisation" type="Node2D"]
+
+[node name="inFront" type="CanvasGroup" parent="."]
+z_index = 1
+
+[node name="frontHair" type="AnimatedSprite2D" parent="inFront"]
+position = Vector2(-15, -10)
+scale = Vector2(1.64, 1)
+sprite_frames = SubResource("SpriteFrames_2s0ba")
+animation = &"new_animation"
+
+[node name="hat" type="Sprite2D" parent="inFront"]
+
+[node name="earrings" type="Sprite2D" parent="inFront"]
+
+[node name="behind" type="CanvasGroup" parent="."]
+z_index = -1
+
+[node name="backHair" type="AnimatedSprite2D" parent="behind"]
+
+[node name="tail" type="AnimatedSprite2D" parent="behind"]

@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=4 uid="uid://bvk26su1kuptl"]
+[gd_scene load_steps=19 format=4 uid="uid://bvk26su1kuptl"]
 
 [ext_resource type="Texture2D" uid="uid://mh73q2rmkd0" path="res://assets/terrain/grass1-sheet2.png" id="1_lquwl"]
 [ext_resource type="PackedScene" uid="uid://u1bxf1up7wmt" path="res://player.tscn" id="2_h2yge"]
@@ -6,13 +6,11 @@
 [ext_resource type="Texture2D" uid="uid://bev0yhwlwurx6" path="res://assets/terrain/fence_sheet.png" id="3_1bvp3"]
 [ext_resource type="Texture2D" uid="uid://b6juyq6dcx7nd" path="res://assets/terrain/tree1.png" id="3_h2yge"]
 [ext_resource type="Texture2D" uid="uid://ce1rsau3hoop" path="res://assets/terrain/fence2_sheet.png" id="5_7mycd"]
-[ext_resource type="Texture2D" uid="uid://dt10gevklj4su" path="res://assets/ponySprite/chara_hair1.png" id="7_5vw27"]
-[ext_resource type="Texture2D" uid="uid://c6hmxy81t8kas" path="res://assets/ponySprite/chara_hair2.png" id="8_4c57u"]
-[ext_resource type="Script" uid="uid://dksdmly82hlf7" path="res://scripts/front_hair.gd" id="8_kek77"]
 [ext_resource type="Script" uid="uid://vrcqdd1gtfvs" path="res://scripts/frontHairSelect.gd" id="9_dg77c"]
 [ext_resource type="Script" uid="uid://d1abfjrytfuf5" path="res://scripts/camera_2d.gd" id="10_ycdy4"]
 [ext_resource type="Script" uid="uid://dxtuctp3iacxx" path="res://scripts/open_options.gd" id="11_ycdy4"]
 [ext_resource type="Script" uid="uid://dut2twpk1ltm5" path="res://scripts/character_editor.gd" id="12_w48qg"]
+[ext_resource type="PackedScene" uid="uid://ya2jtwqkdlko" path="res://player_customisation.tscn" id="14_w48qg"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_1bvp3"]
 texture = ExtResource("1_lquwl")
@@ -886,25 +884,6 @@ sources/0 = SubResource("TileSetAtlasSource_lquwl")
 sources/2 = SubResource("TileSetAtlasSource_7mycd")
 sources/5 = SubResource("TileSetAtlasSource_5vw27")
 
-[sub_resource type="SpriteFrames" id="SpriteFrames_5vw27"]
-animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": ExtResource("7_5vw27")
-}],
-"loop": true,
-"name": &"0",
-"speed": 5.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": ExtResource("8_4c57u")
-}],
-"loop": true,
-"name": &"1",
-"speed": 5.0
-}]
-
 [node name="Node" type="Node"]
 
 [node name="gameWorld" type="Node2D" parent="."]
@@ -976,14 +955,10 @@ visible = false
 layout_mode = 2
 metadata/_tab_index = 1
 
-[node name="frontHair" type="AnimatedSprite2D" parent="gameWorld/Player"]
+[node name="playerCustomisation" parent="gameWorld/Player" instance=ExtResource("14_w48qg")]
 visible = false
-sprite_frames = SubResource("SpriteFrames_5vw27")
-animation = &"1"
-script = ExtResource("8_kek77")
 
 [connection signal="openCharEditor" from="gameWorld/Player/Camera2D/Control/openOptions" to="gameWorld/Player" method="_on_open_options_open_char_editor"]
 [connection signal="openCharEditor" from="gameWorld/Player/Camera2D/Control/openOptions" to="gameWorld/Player/Camera2D" method="_on_open_options_open_char_editor"]
 [connection signal="openCharEditor" from="gameWorld/Player/Camera2D/Control/openOptions" to="gameWorld/Player/Camera2D/Control/characterOptionsTab" method="_on_open_options_pressed"]
 [connection signal="pressed" from="gameWorld/Player/Camera2D/Control/openOptions" to="gameWorld/Player/Camera2D/Control/openOptions" method="_on_pressed"]
-[connection signal="item_selected" from="gameWorld/Player/Camera2D/Control/characterOptionsTab/Hair/frontHair" to="gameWorld/Player/frontHair" method="_on_option_button_item_selected"]

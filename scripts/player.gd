@@ -77,11 +77,11 @@ func _physics_process(_delta: float) -> void:
 		PLAYER_STATES.STATE_EDITOR:
 			pass
 
-func set_state(new_state: PLAYER_STATES):
+func set_state(new_state: PLAYER_STATES) -> void:
 	var previous_state := state
 	state = new_state
 
-func copyPlayerData(datain: playerData):
+func copyPlayerData(datain: playerData) -> void:
 	$AnimatedSprite2D.flip_h = datain.h_flip
 	$AnimatedSprite2D.animation = datain.anim
 	if(datain.animState):
