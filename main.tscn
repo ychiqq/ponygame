@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=4 uid="uid://bvk26su1kuptl"]
+[gd_scene load_steps=18 format=4 uid="uid://bvk26su1kuptl"]
 
 [ext_resource type="Texture2D" uid="uid://mh73q2rmkd0" path="res://assets/terrain/grass1-sheet2.png" id="1_lquwl"]
 [ext_resource type="PackedScene" uid="uid://u1bxf1up7wmt" path="res://player.tscn" id="2_h2yge"]
@@ -10,7 +10,6 @@
 [ext_resource type="Script" uid="uid://d1abfjrytfuf5" path="res://scripts/camera_2d.gd" id="10_ycdy4"]
 [ext_resource type="Script" uid="uid://dxtuctp3iacxx" path="res://scripts/open_options.gd" id="11_ycdy4"]
 [ext_resource type="Script" uid="uid://dut2twpk1ltm5" path="res://scripts/character_editor.gd" id="12_w48qg"]
-[ext_resource type="PackedScene" uid="uid://ya2jtwqkdlko" path="res://player_customisation.tscn" id="14_w48qg"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_1bvp3"]
 texture = ExtResource("1_lquwl")
@@ -954,9 +953,6 @@ script = ExtResource("9_dg77c")
 visible = false
 layout_mode = 2
 metadata/_tab_index = 1
-
-[node name="playerCustomisation" parent="gameWorld/Player" instance=ExtResource("14_w48qg")]
-visible = false
 
 [connection signal="openCharEditor" from="gameWorld/Player/Camera2D/Control/openOptions" to="gameWorld/Player" method="_on_open_options_open_char_editor"]
 [connection signal="openCharEditor" from="gameWorld/Player/Camera2D/Control/openOptions" to="gameWorld/Player/Camera2D" method="_on_open_options_open_char_editor"]
